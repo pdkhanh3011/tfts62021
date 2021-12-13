@@ -44,21 +44,30 @@ export default {
 		synergylist,
 	},
 	async asyncData() {
-		const response1 = await fetch('http://phplaravel-701092-2318612.cloudwaysapps.com/champions')
+		const response1 = await fetch(
+			'http://phplaravel-701092-2318612.cloudwaysapps.com/champions'
+		)
 		const championData = await response1.json()
-		const response2 = await fetch('http://phplaravel-701092-2318612.cloudwaysapps.com/items')
+		const response2 = await fetch(
+			'http://phplaravel-701092-2318612.cloudwaysapps.com/items'
+		)
 		const itemData = await response2.json()
-		const response3 = await fetch('http://phplaravel-701092-2318612.cloudwaysapps.com/synergies')
+		const response3 = await fetch(
+			'http://phplaravel-701092-2318612.cloudwaysapps.com/synergies'
+		)
 		const synergyData = await response3.json()
 		return { championData, itemData, synergyData }
 	},
 	data() {
 		return {
 			metalist: {
-				"Oriana Seraphine carry": {
-					jayce: { level: 2, items: ['bramble','claw','titan']},
-					orianna: { level: 2, items: ['shojin','staff','shojin'] },
-					seraphine: { level: 2, items: ['shojin','staff','shojin'] },
+				'Oriana Seraphine carry': {
+					jayce: { level: 2, items: ['bramble', 'claw', 'titan'] },
+					orianna: { level: 2, items: ['shojin', 'staff', 'shojin'] },
+					seraphine: {
+						level: 2,
+						items: ['shojin', 'staff', 'shojin'],
+					},
 					braum: { level: 2, items: ['sunfire'] },
 					leona: { level: 2, items: [] },
 					taric: { level: 2, items: [] },
@@ -66,24 +75,27 @@ export default {
 					yuumi: { level: 2, items: [] },
 				},
 				"Kog'maw Hộ vệ": {
-					garen: { level:3, items:['warmog','titan','claw'] },
-					Kassadin: { level:3, items:[] },
-					caitlyn: { level:3, items:[] },
-					kogmaw: { level:2, items:['justice','rageblade','hurricane'] },
-					sion: { level:2, items:[] },
-					chogath: { level:2, items:[] },
+					garen: { level: 3, items: ['warmog', 'titan', 'claw'] },
+					Kassadin: { level: 3, items: [] },
+					caitlyn: { level: 3, items: [] },
+					kogmaw: {
+						level: 2,
+						items: ['justice', 'rageblade', 'hurricane'],
+					},
+					sion: { level: 2, items: [] },
+					chogath: { level: 2, items: [] },
 				},
-				"Urgot Hóa Kỹ Đấu Sĩ": {
-					drmundo: {level:2,items:['warmog','claw','spark']},
-				}
+				'Urgot Hóa Kỹ Đấu Sĩ': {
+					drmundo: { level: 2, items: ['warmog', 'claw', 'spark'] },
+				},
 			},
 		}
 	},
 	methods: {
 		getImgItem(itemsArr) {
 			const itemList = itemsArr.map((item) => {
-				return this.itemData.find(
-					(itemInItemdata) => itemInItemdata.name.toLowerCase().includes(item)
+				return this.itemData.find((itemInItemdata) =>
+					itemInItemdata.name.toLowerCase().includes(item)
 				).img_item
 			})
 			return itemList

@@ -20,8 +20,7 @@
 					/>
 				</div>
 				<div class="list-items">
-					<BuilderItemListitems 
-					:items-data="itemsData"/>
+					<BuilderItemListitems :items-data="itemsData" />
 				</div>
 				<div class="list-champion-container">
 					<BuilderChampionListchampion
@@ -39,21 +38,20 @@ import builderBoard from '~/components/builder/board/board.vue'
 export default {
 	components: { builderBoard },
 	async asyncData() {
-		const res = await fetch('http://phplaravel-701092-2318612.cloudwaysapps.com/synergies')
+		const res = await fetch('https://tftbuild-bcbec-default-rtdb.asia-southeast1.firebasedatabase.app/4/data.json')
 		const synergiesData = await res.json()
 
-		const res2 = await fetch('http://phplaravel-701092-2318612.cloudwaysapps.com/champions')
+		const res2 = await fetch('https://tftbuild-bcbec-default-rtdb.asia-southeast1.firebasedatabase.app/2/data.json')
 		const championData = await res2.json()
 
-		const res3 = await fetch('http://phplaravel-701092-2318612.cloudwaysapps.com/items')
+		const res3 = await fetch('https://tftbuild-bcbec-default-rtdb.asia-southeast1.firebasedatabase.app/3/data.json')
 		const itemsData = await res3.json()
+
 		return { synergiesData, championData, itemsData }
 	},
 	data() {
 		return {
-			championsInBoard: [
-				
-			],
+			championsInBoard: [],
 		}
 	},
 	computed: {
@@ -63,8 +61,8 @@ export default {
 				return this.synergies.sort((a, b) => {
 					if (a.level === b.level) {
 						return a.count - b.count
-					} 
-					
+					}
+
 					return b.level - a.level
 				})
 			} else {
@@ -75,28 +73,26 @@ export default {
 			if (this.championsInBoard.length !== 0) {
 				const championList = this.championsInBoard.map((e) => e.name)
 				const championItems = []
-				this.championsInBoard.forEach(function(e) {
+				this.championsInBoard.forEach(function (e) {
 					championItems.push(...e.items)
 				})
-				const championSynergyItems = championItems.map(e => {
-					return this.itemsData.find(a => a.name === e).type
+				const championSynergyItems = championItems.map((e) => {
+					return this.itemsData.find((a) => a.name === e).type
 				})
 				const championListUnique = Array.from(new Set(championList))
 				const data = championListUnique.map((name) => {
 					const toc = this.championData.find(
 						(a) => a.name === name
 					).toc
-					
+
 					const he = this.championData.find((a) => a.name === name).he
-					if (he!==''&toc!==''){
+					if ((he !== '') & (toc !== '')) {
 						return toc + ',' + he
-						
-					} else if (he==='') {
+					} else if (he === '') {
 						return toc
 					} else {
 						return he
 					}
-					
 				})
 				const arrSynergies = data.join(',').split(',')
 				const arrSynergiesUnique = Array.from(new Set(arrSynergies))
@@ -168,7 +164,9 @@ export default {
 	},
 	methods: {
 		onDrop(obj) {
-			const index = this.championsInBoard.findIndex(item => item.position === obj.position)
+			const index = this.championsInBoard.findIndex(
+				(item) => item.position === obj.position
+			)
 			if (index >= 0) {
 				this.championsInBoard.splice(index, 1)
 				this.championsInBoard.push(obj)
@@ -178,46 +176,57 @@ export default {
 		},
 		moveChampion(event) {
 			if (this.championsInBoard.length !== 0) {
-			this.championsInBoard.forEach((item,index)=> {
-				if (event.name === item.name && event.oldPosition === item.position){
-					if (this.championsInBoard) {
-						const check = this.championsInBoard.find(
-							(item) => item.position === event.newPosition
-						)
-						if (check) {
-							const i = this.championsInBoard.findIndex(e=>e.position === event.newPosition)
-							this.championsInBoard[index].position = event.newPosition
-							this.championsInBoard[i].position = event.oldPosition
-						} else {
-							this.championsInBoard[index].position = event.newPosition
+				this.championsInBoard.forEach((item, index) => {
+					if (
+						event.name === item.name &&
+						event.oldPosition === item.position
+					) {
+						if (this.championsInBoard) {
+							const check = this.championsInBoard.find(
+								(item) => item.position === event.newPosition
+							)
+							if (check) {
+								const i = this.championsInBoard.findIndex(
+									(e) => e.position === event.newPosition
+								)
+								this.championsInBoard[index].position =
+									event.newPosition
+								this.championsInBoard[i].position =
+									event.oldPosition
+							} else {
+								this.championsInBoard[index].position =
+									event.newPosition
+							}
 						}
 					}
-				}
-			})
+				})
 			}
 		},
 		removeChampion(e) {
 			if (this.championsInBoard.length !== 0) {
-				const index = this.championsInBoard.findIndex(item=>{
-					return item.name === e.nameInBoard && item.position === Number(e.positionInBoard)
+				const index = this.championsInBoard.findIndex((item) => {
+					return (
+						item.name === e.nameInBoard &&
+						item.position === Number(e.positionInBoard)
+					)
 				})
 				if (index >= 0) {
-					this.championsInBoard.splice(index,1)
+					this.championsInBoard.splice(index, 1)
 				}
 			}
 		},
 		addItemToChampion(e) {
 			if (this.championsInBoard.length !== 0) {
-				const index = this.championsInBoard.findIndex(item=>{
+				const index = this.championsInBoard.findIndex((item) => {
 					return item.position === Number(e.positionOfChampion)
 				})
-				if(index >= 0) {
-					if (this.championsInBoard[index].items.length<=2) {
+				if (index >= 0) {
+					if (this.championsInBoard[index].items.length <= 2) {
 						this.championsInBoard[index].items.push(e.nameItem)
 					}
 				}
 			}
-		}
+		},
 	},
 }
 </script>

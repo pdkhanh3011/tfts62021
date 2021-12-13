@@ -36,7 +36,7 @@ export default {
     background-image: url(https://lolchess.gg/images/tft/traits/background/bronze.svg);
 }
 .synergy-item-icon-container.level2 {
-    background-image: url(https://lolchess.gg/images/tft/traits/background/bronze.svg);
+    background-image: url(https://lolchess.gg/images/tft/traits/background/silver.svg);
 }
 .synergy-item-icon-container.level3 {
     background-image: url(https://lolchess.gg/images/tft/traits/background/gold.svg);
