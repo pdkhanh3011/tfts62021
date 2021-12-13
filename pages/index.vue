@@ -45,15 +45,15 @@ export default {
 	},
 	async asyncData() {
 		const response1 = await fetch(
-			'http://phplaravel-701092-2318612.cloudwaysapps.com/champions'
+			'https://tftbuild-bcbec-default-rtdb.asia-southeast1.firebasedatabase.app/2/data.json'
 		)
 		const championData = await response1.json()
 		const response2 = await fetch(
-			'http://phplaravel-701092-2318612.cloudwaysapps.com/items'
+			'https://tftbuild-bcbec-default-rtdb.asia-southeast1.firebasedatabase.app/3/data.json'
 		)
 		const itemData = await response2.json()
 		const response3 = await fetch(
-			'http://phplaravel-701092-2318612.cloudwaysapps.com/synergies'
+			'https://tftbuild-bcbec-default-rtdb.asia-southeast1.firebasedatabase.app/4/data.json'
 		)
 		const synergyData = await response3.json()
 		return { championData, itemData, synergyData }
@@ -84,9 +84,6 @@ export default {
 					},
 					sion: { level: 2, items: [] },
 					chogath: { level: 2, items: [] },
-				},
-				'Urgot Hóa Kỹ Đấu Sĩ': {
-					drmundo: { level: 2, items: ['warmog', 'claw', 'spark'] },
 				},
 			},
 		}

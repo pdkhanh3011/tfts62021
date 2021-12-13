@@ -138,7 +138,7 @@ export default {
 							if (count >= statesArr[statesArr.length - 1]) {
 								level = 3
 							} else if (count >= statesArr[1]) {
-								level = 3
+								level = 2
 							} else if (count >= statesArr[state]) {
 								level += 1
 							}
