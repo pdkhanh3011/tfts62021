@@ -88,7 +88,7 @@ export default {
     computed: {
         // eslint-disable-next-line vue/return-in-computed-property
         borderColor() {
-            switch (this.championInfo.price) {
+            switch (Number(this.championInfo.price)) {
                 case 1: return "cost-1"
                 case 2: return "cost-2"
                 case 3: return "cost-3"
