@@ -1,6 +1,6 @@
 # clonelmss
 
-link deploy: https://tftbuild-bcbec.web.app/builder/
+demo: https://tftbuild-bcbec.web.app/builder/
 
 ## Build Setup
 
